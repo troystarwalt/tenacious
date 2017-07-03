@@ -23,6 +23,9 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+# Devise authentication
+gem 'devise', '~> 4.3.0'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
