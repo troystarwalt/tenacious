@@ -1,0 +1,12 @@
+<div class='alert alert-notice'>
+  <span>
+    <%= pluralize(obj.errors.count, 'error') %>
+    prohibited this record from being saved:
+  </span> 
+  <span class='dismiss'>&times;</span>
+</div>
+<% obj.errors.full_messages.each do |msg| %>
+  <div class='alert alert-alert'>
+    <span><%= msg %></span> <span class='dismiss'>&times;</span>
+  </div>
+<% end %>
