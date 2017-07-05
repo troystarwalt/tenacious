@@ -18,8 +18,8 @@ RSpec.describe Inventory, type: :model do
       expect(FactoryGirl.build(:inventory, name: Faker::Lorem.characters(256))).not_to be_valid
     end
 
-    it 'is invalid with a duplicate value' do 
-      inventory = FactoryGirl.create(:inventory, name: 'duplicate')
+    it 'is invalid with a duplicate value' do
+      FactoryGirl.create(:inventory, name: 'duplicate')
       expect(FactoryGirl.build(:inventory, name: 'Duplicate')).not_to be_valid
     end
   end
