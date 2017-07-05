@@ -5,3 +5,6 @@ rvm:
 before_script:
   - bin/setup
 
+script:
+  - bundle exec rake
+  - bundle exec brakeman -z
