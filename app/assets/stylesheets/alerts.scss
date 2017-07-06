@@ -1,0 +1,24 @@
+.alert {
+  padding: 10px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+
+  span {
+    align-self: center
+  }
+
+  .dismiss {
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 30px;
+  }
+}
+
+.alert-alert {
+  background-color: #da1717
+}
+
+.alert-notice {
+  background-color: #3691ca
+}
