@@ -11,3 +11,4 @@ before_script:
 script:
   - bundle exec rake
   - bundle exec brakeman -z
+  - bundle exec rubocop
