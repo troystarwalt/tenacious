@@ -37,4 +37,21 @@ RSpec.describe Inventory, type: :model do
       expect(FactoryGirl.build(:inventory, description: Faker::Lorem.characters(256))).not_to be_valid
     end
   end
+
+  describe '#user association' do
+    let(:inventory) { FactoryGirl.create(:inventory) }
+
+    it 'is valid when it has a user' do
+      user = FactoryGirl.create(:user)
+      expect(FactoryGirl.build(:inventory_user, :read, inventory: inventory, user: user)).to be_valid
+    end
+
+    it 'is valid when it has users' do
+      users = FactoryGirl.create_list(:user, 2)
+      users.each do |user|
+        FactoryGirl.create(:inventory_user, :read, inventory: inventory, user: user)
+      end
+      expect(inventory.users).to eq users
+    end
+  end
 end

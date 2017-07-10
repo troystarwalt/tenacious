@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  it 'has valid factories' do
+  it 'has a valid factory' do
     expect(FactoryGirl.build(:user)).to be_valid
   end
 
@@ -24,6 +24,23 @@ RSpec.describe User, type: :model do
     it 'is valid when it has organizations' do
       orgs = FactoryGirl.create_list(:organization, 2)
       expect(FactoryGirl.build(:user, organizations: orgs)).to be_valid
+    end
+  end
+
+  describe '#inventory association' do
+    let(:user) { FactoryGirl.create(:user) }
+
+    it 'is valid when it has an inventory' do
+      inventory = FactoryGirl.create(:inventory)
+      expect(FactoryGirl.build(:inventory_user, :read, inventory: inventory, user: user)).to be_valid
+    end
+
+    it 'is valid when it has inventories' do
+      inventories = FactoryGirl.create_list(:inventory, 2)
+      inventories.each do |inventory|
+        FactoryGirl.create(:inventory_user, :read, inventory: inventory, user: user)
+      end
+      expect(user.inventories).to eq inventories
     end
   end
 end

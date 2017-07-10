@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170704214824) do
+ActiveRecord::Schema.define(version: 20170710193759) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,14 @@ ActiveRecord::Schema.define(version: 20170704214824) do
     t.string "description", limit: 255
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "inventory_users", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "inventory_id", null: false
+    t.integer "user_role", default: 0, null: false
+    t.index ["inventory_id"], name: "index_inventory_users_on_inventory_id"
+    t.index ["user_id"], name: "index_inventory_users_on_user_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -61,4 +69,6 @@ ActiveRecord::Schema.define(version: 20170704214824) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "inventory_users", "inventories"
+  add_foreign_key "inventory_users", "users"
 end
