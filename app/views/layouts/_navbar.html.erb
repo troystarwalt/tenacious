@@ -1,0 +1,22 @@
+<nav>
+  <%= link_to 'Tenacious', root_path, class: 'logo' %>
+
+  <input id='trigger' type='checkbox'>
+
+  <label for='trigger' id='nav-toggle'>
+    <span></span>
+  </label>
+
+  <!-- <ul> -->
+  <!--  <li><%= link_to 'Nowhere', '#' %></li> -->
+  <!-- </ul> -->
+
+  <ul>
+    <% if user_signed_in? %>
+      <li><%= button_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
+    <% else %>
+      <li><%= link_to 'Sign Up', new_user_registration_path %></li>
+      <li><%= link_to 'Sign In', new_user_session_path %></li>
+    <% end %>
+  </ul>
+</nav>

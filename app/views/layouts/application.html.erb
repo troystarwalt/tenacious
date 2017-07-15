@@ -3,14 +3,16 @@
   <head>
     <title>Tenacious</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_pack_tag 'application' %>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
   </head>
 
   <body>
-    <%= render 'layouts/flash_messages' %>  
-    <%= yield %>
+    <%= render 'layouts/navbar' %>
+    <main>
+      <%= render 'layouts/flash_messages' %> 
+      <%= yield %>
+    </main>
     <%= javascript_pack_tag 'application' %>
   </body>
 </html>
