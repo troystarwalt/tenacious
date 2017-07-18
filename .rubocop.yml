@@ -6,3 +6,16 @@ AllCops:
     - db/migrate/**
     - vendor/bundle/**/*
     - node_modules/**/*
+
+Style/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+    - Guardfile
+
+Style/Documentation:
+  Exclude:
+    - 'app/controllers/*'
+    - 'app/helpers/*'
+    - 'app/models/*'
+    - 'app/mailers/*'
+    - 'config/application.rb'
