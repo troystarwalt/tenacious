@@ -1,16 +1,17 @@
 inherit_from: .rubocop_todo.yml
 
 AllCops:
-  Excludes:
+  Exclude:
     - db/schema.rb
     - db/migrate/**
     - vendor/bundle/**/*
     - node_modules/**/*
 
-Style/BlockLength:
+Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
     - Guardfile
+    - config/environments/production.rb
 
 Style/Documentation:
   Exclude:

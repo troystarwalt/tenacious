@@ -15,18 +15,6 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#organization association' do
-    it 'is valid when it has an organization' do
-      org = FactoryGirl.create(:organization)
-      expect(FactoryGirl.build(:user, organizations: [org])).to be_valid
-    end
-
-    it 'is valid when it has organizations' do
-      orgs = FactoryGirl.create_list(:organization, 2)
-      expect(FactoryGirl.build(:user, organizations: orgs)).to be_valid
-    end
-  end
-
   describe '#inventory association' do
     let(:user) { FactoryGirl.create(:user) }
 
@@ -41,6 +29,22 @@ RSpec.describe User, type: :model do
         FactoryGirl.create(:inventory_user, :read, inventory: inventory, user: user)
       end
       expect(user.inventories).to eq inventories
+    end
+  end
+
+  describe '#organizations' do
+    it 'returns organizations it belongs to' do
+      user = FactoryGirl.create(:user)
+      orgs = FactoryGirl.create_list(:organization, 2, users: [user])
+      expect(user.organizations).to eq(orgs)
+    end
+  end
+
+  describe '#owned_organizations' do
+    it 'returns organizations it owns' do
+      user = FactoryGirl.create(:user)
+      orgs = FactoryGirl.create_list(:organization, 2, owner: user)
+      expect(user.owned_organizations).to eq(orgs)
     end
   end
 end

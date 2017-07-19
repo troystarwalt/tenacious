@@ -1,0 +1,6 @@
+<%= render_errors_for(@organization) %>
+
+<%= form_for @organization do |f| %>
+  <%= f.text_field :name %>
+  <%= f.submit 'Create Organization' %>
+<% end %>

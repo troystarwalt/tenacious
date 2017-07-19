@@ -5,7 +5,7 @@
   justify-content: space-between;
 
   span {
-    align-self: center
+    align-self: center;
   }
 
   .dismiss {
@@ -16,9 +16,13 @@
 }
 
 .alert-alert {
-  background-color: #da1717
+  background-color: #da1717;
 }
 
 .alert-notice {
-  background-color: #3691ca
+  background-color: #3691ca;
+}
+
+.alert-success {
+  background-color: #5a9e21;
 }
