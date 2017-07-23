@@ -33,15 +33,22 @@ RSpec.describe Organization, type: :model do
     end
   end
 
-  describe '#user association' do
-    it 'is valid when it has a user' do
-      user = FactoryGirl.create(:user)
-      expect(FactoryGirl.build(:organization, users: [user])).to be_valid
+  describe '#owner' do
+    it 'is invalid when nil' do
+      expect(FactoryGirl.build(:organization, owner: nil)).not_to be_valid
     end
 
-    it 'is valid when it has users' do
-      users = FactoryGirl.create_list(:user, 2)
-      expect(FactoryGirl.build(:organization, users: users)).to be_valid
+    it 'is a user' do
+      organization = FactoryGirl.create(:organization)
+      expect(organization.owner).to be_a(User)
+    end
+  end
+
+  describe '#users' do
+    it 'returns users belonging to the organization' do
+      organization = FactoryGirl.create(:organization)
+      users = FactoryGirl.create_list(:user, 2, organizations: [organization])
+      expect(organization.users).to eq(users)
     end
   end
 end

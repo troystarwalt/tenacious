@@ -1,0 +1,136 @@
+$breakpoint: 767px;
+$logo-height: 40px;
+$link-padding: 10px;
+
+nav {
+  background-color: #212121;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+
+  .logo {
+    font-size: 20px;
+    line-height: $logo-height;
+  }
+
+  ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    li {
+      display: inline;
+    }
+  }
+
+  form input {
+    background: none;
+    border: none;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  label, ul, a {
+    align-self: center;
+  }
+
+  form input, a {
+    padding: $link-padding;
+    color: #efefef;
+  }
+  
+  form input:hover, a:hover {
+    color: #568ff7
+  }
+
+  #trigger {
+    display: none;
+  }
+}
+
+@media screen and (max-width: $breakpoint) {
+  #nav-toggle {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    cursor: pointer;
+
+    span, span:before, span:after {
+      align-self: center;
+      border-radius: 2px;
+      height: 5px;
+      width: inherit;
+      background: white;
+      position: absolute;
+      content: '';
+      transition: all 300ms ease-in-out;
+    }
+
+    span:before {
+      bottom: 10px;
+    }
+
+    span:after {
+      top: 10px;
+    }
+  }
+
+  #trigger:checked ~ label span {
+    background-color: transparent;
+
+    &:before, &:after {
+      top: 0;
+    }
+
+    &:before {
+      transform: rotate(45deg);
+    }
+    
+    &:after {
+      transform: rotate(-45deg);
+    }
+  }
+
+  #trigger:checked ~ ul {
+    display: block;
+  }
+
+  nav {
+    ul, form input {
+      width: 100%;
+    }
+
+    ul {
+      display: none;
+
+      form input, a {
+        padding: 20px 0;
+      }
+
+      a {
+        display: block;
+        text-align: center;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: $breakpoint) {
+  #nav-toggle {
+    display: none;
+  }
+  
+  nav > ul {
+    display: block !important;
+  }
+}
+
+body > main {
+  padding-top: $logo-height + 2*$link-padding;
+}
