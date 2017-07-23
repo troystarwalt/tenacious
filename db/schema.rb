@@ -22,6 +22,13 @@ ActiveRecord::Schema.define(version: 20170713185103) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "inventories_users", id: false, force: :cascade do |t|
+    t.bigint "inventory_id"
+    t.bigint "user_id"
+    t.index ["inventory_id"], name: "index_inventories_users_on_inventory_id"
+    t.index ["user_id"], name: "index_inventories_users_on_user_id"
+  end
+
   create_table "inventory_users", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "inventory_id", null: false
