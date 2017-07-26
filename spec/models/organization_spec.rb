@@ -18,7 +18,7 @@ RSpec.describe Organization, type: :model do
       expect(FactoryGirl.build(:organization, name: Faker::Lorem.characters(256))).not_to be_valid
     end
 
-    context 'uniqueness' do
+    describe 'uniqueness' do
       before do
         FactoryGirl.create(:organization, name: 'duplicate')
       end

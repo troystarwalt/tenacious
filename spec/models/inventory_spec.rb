@@ -18,9 +18,18 @@ RSpec.describe Inventory, type: :model do
       expect(FactoryGirl.build(:inventory, name: Faker::Lorem.characters(256))).not_to be_valid
     end
 
-    it 'is invalid with a duplicate value' do
-      FactoryGirl.create(:inventory, name: 'duplicate')
-      expect(FactoryGirl.build(:inventory, name: 'Duplicate')).not_to be_valid
+    describe 'uniqueness' do
+      before do
+        FactoryGirl.create(:inventory, name: 'duplicate')
+      end
+
+      it 'is invalid with a duplicate inventory' do
+        expect(FactoryGirl.build(:inventory, name: 'duplicate')).not_to be_valid
+      end
+
+      it 'is case insensitive' do
+        expect(FactoryGirl.build(:inventory, name: 'Duplicate')).not_to be_valid
+      end
     end
   end
 
@@ -38,19 +47,10 @@ RSpec.describe Inventory, type: :model do
     end
   end
 
-  describe '#user association' do
-    let(:inventory) { FactoryGirl.create(:inventory) }
-
-    it 'is valid when it has a user' do
-      user = FactoryGirl.create(:user)
-      expect(FactoryGirl.build(:inventory_user, :read, inventory: inventory, user: user)).to be_valid
-    end
-
-    it 'is valid when it has users' do
-      users = FactoryGirl.create_list(:user, 2)
-      users.each do |user|
-        FactoryGirl.create(:inventory_user, :read, inventory: inventory, user: user)
-      end
+  describe '#users' do
+    it 'returns users belonging to the inventory' do
+      inventory = FactoryGirl.create(:inventory)
+      users = FactoryGirl.create_list(:user, 2, inventories: [inventory])
       expect(inventory.users).to eq users
     end
   end
