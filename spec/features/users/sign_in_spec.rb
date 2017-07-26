@@ -7,16 +7,51 @@ RSpec.feature 'Users signing in' do
     visit '/'
     click_link 'Sign In'
   end
-  
-  scenario 'succeeds with valid credentials' do
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
-    click_button 'Log in'
-    expect(page).to have_content('Signed in successfully')
+
+  feature 'with valid credentials' do
+    before do
+      fill_in 'Email', with: user.email
+      fill_in 'Password', with: user.password
+      click_button 'Log in'
+    end
+
+    scenario 'succeeds and restricts access to the sign in route' do
+      visit new_user_session_path
+      expect(current_path).to eq(root_path)
+      expect(page).to have_content('You are already signed in')
+    end
+
+    scenario 'shows a message saying the user was logged in' do
+      expect(page).to have_content('Signed in successfully')
+    end
   end
-  
-  scenario 'fails with invalid credentials' do
-    click_button 'Log in'
-    expect(page).to have_content('Invalid Email or password')
+
+  shared_examples 'a failed sign in attempt' do
+    scenario 'fails and stays on the sign in page' do
+      expect(current_path).to eq(new_user_session_path)
+      expect(page).not_to have_content('Signed in successfully')
+    end
+
+    scenario 'shows a message showing why the authenticatication was not successful' do
+      expect(page).to have_content('Invalid Email or password')
+    end
+  end
+
+  feature 'with invalid credentials' do
+    before do
+      fill_in 'Email', with: 'wrong_email@example.com'
+      fill_in 'Password', with: 'wrong_password'
+      click_button 'Log in'
+    end
+
+    include_examples 'a failed sign in attempt'
+  end
+
+  feature 'with no credentials' do
+    before do
+      click_button 'Log in'
+    end
+
+    include_examples 'a failed sign in attempt'
   end
 end
