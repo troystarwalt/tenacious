@@ -22,12 +22,20 @@ ActiveRecord::Schema.define(version: 20170713185103) do
     t.datetime "updated_at", null: false
   end
 
+<<<<<<< HEAD
+  create_table "inventories_users", id: false, force: :cascade do |t|
+    t.bigint "inventory_id"
+    t.bigint "user_id"
+    t.index ["inventory_id"], name: "index_inventories_users_on_inventory_id"
+    t.index ["user_id"], name: "index_inventories_users_on_user_id"
+=======
   create_table "inventory_users", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "inventory_id", null: false
     t.integer "user_role", default: 0, null: false
     t.index ["inventory_id"], name: "index_inventory_users_on_inventory_id"
     t.index ["user_id"], name: "index_inventory_users_on_user_id"
+>>>>>>> c423e93298a357dbbd15d2e3ecc2ea1c38a1b04b
   end
 
   create_table "organizations", force: :cascade do |t|

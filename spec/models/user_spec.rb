@@ -29,20 +29,11 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#inventory association' do
-    let(:user) { FactoryGirl.create(:user) }
-
-    it 'is valid when it has an inventory' do
-      inventory = FactoryGirl.create(:inventory)
-      expect(FactoryGirl.build(:inventory_user, :read, inventory: inventory, user: user)).to be_valid
-    end
-
-    it 'is valid when it has inventories' do
-      inventories = FactoryGirl.create_list(:inventory, 2)
-      inventories.each do |inventory|
-        FactoryGirl.create(:inventory_user, :read, inventory: inventory, user: user)
-      end
-      expect(user.inventories).to eq inventories
+  describe '#inventories' do
+    it 'returns inventories it belongs to' do
+      user = FactoryGirl.create(:user)
+      inventories = FactoryGirl.create_list(:inventory, 2, users: [user])
+      expect(user.inventories).to eq(inventories)
     end
   end
 
