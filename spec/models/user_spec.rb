@@ -5,15 +5,19 @@ RSpec.describe User, type: :model do
     expect(FactoryGirl.build(:user)).to be_valid
   end
 
-  describe User do
-   it "validates password length" do
-     expect(FactoryGirl.build(:user, password: "1234567")).not_to be_valid
-   end
+  describe '#password' do
+    it 'is invalid when nil' do
+      expect(FactoryGirl.build(:user, password: nil)).not_to be_valid
+    end
 
-   it "validates password length" do
-     expect(FactoryGirl.build(:user, password: "a42d1edd2637268dbd053521828ed3eecd5e9e2e95bea57a14d5fe453ba1399c66854004a3d7e13b16d77724249eca12eeade1928b7d08412a772d50964de16a")).to be_valid
-   end
- end
+    it 'is invalid when under 14 characters' do
+      expect(FactoryGirl.build(:user, password: Faker::Internet.password(1, 13))).not_to be_valid
+    end
+
+    it 'is valid when between 14 and 128 characters' do
+      expect(FactoryGirl.build(:user, password: Faker::Internet.password(14, 128))).to be_valid
+    end
+  end
 
   describe '#confirmed' do
     it 'is true in a confirmed user' do
