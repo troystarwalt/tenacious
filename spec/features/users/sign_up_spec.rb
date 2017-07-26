@@ -8,7 +8,7 @@ RSpec.feature 'Users signing up' do
     visit '/'
     click_link 'Sign Up'
   end
-  
+
   feature 'with valid credentials' do
     before do
       fill_in 'Email', with: user.email
@@ -41,7 +41,7 @@ RSpec.feature 'Users signing up' do
       fill_in 'user_password_confirmation', with: 'not_matching_password'
       click_button 'Sign up'
     end
-    
+
     include_examples 'a failed sign up attempt'
 
     scenario 'shows messages saying why the user was not created' do
