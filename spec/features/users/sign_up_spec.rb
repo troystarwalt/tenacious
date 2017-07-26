@@ -46,7 +46,7 @@ RSpec.feature 'Users signing up' do
 
     scenario 'shows messages saying why the user was not created' do
       expect(page).to have_content("Password confirmation doesn't match Password")
-      expect(page).to have_content('Password is too short (minimum is 6 characters)')
+      expect(page).to have_content('Password is too short (minimum is 14 characters)')
     end
   end
 
